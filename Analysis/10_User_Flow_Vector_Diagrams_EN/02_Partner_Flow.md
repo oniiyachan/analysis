@@ -5,36 +5,28 @@
 graph TD
     D(["Partner Metrics (/p)"])
 
-    subgraph Bidding_Zone [The Marketplace]
-        B1(["Live Feeds (/p/bids)"])
-        B2(["Draft New Bid (/p/bids/[requestId])"])
-        B3(["Autofill Templates (/p/bids/templates)"])
-    end
+    %% Bidding
+    D --> B1(["Live Feeds (/p/bids)"])
+    B1 --> B2(["Draft New Bid (/p/bids/[requestId])"])
+    B1 --> B3(["Autofill Templates (/p/bids/templates)"])
 
-    subgraph Operations [Logistics & Calendar]
-        S1(["Master Calendar (/p/schedule)"])
-        S2(["Micro Booking Scope (/p/schedule/[bookingId])"])
-        S3(["Client Tunnels (/p/schedule/[bookingId]/chat)"])
-    end
+    %% Schedule
+    B2 --> S1(["Master Calendar (/p/schedule)"])
+    S1 --> S2(["Micro Booking Scope (/p/schedule/[bookingId])"])
+    S2 --> S3(["Client Tunnels (/p/schedule/[bookingId]/chat)"])
+    
+    %% CRM and Fin
+    S2 --> F1(["Accountant Ledgers (/p/settlement)"])
+    S2 --> C1(["Retained Base (/p/customers)"])
+    S2 --> R1(["Aggregated Defamations (/p/reviews)"])
 
-    subgraph Company_Mgmt [HR & Profile Org]
-        T1(["Team Roster (/p/team)"])
-        T2(["Recruit Injection (/p/team/add)"])
-        P1(["Company Portfolio (/p/portfolio)"])
-        P2(["Portfolio Mutation (/p/portfolio/new)"])
-        SET(["Global Config (/p/settings)"])
-        NOT(["Bells & Whisles (/p/notifications)"])
-    end
-
-    subgraph Accounting_CRM [Financial & CRM]
-        F1(["Accountant Ledgers (/p/settlement)"])
-        C1(["Retained Base (/p/customers)"])
-        R1(["Aggregated Defamations (/p/reviews)"])
-    end
-
-    D --> B1 & S1 & F1 & T1 & P1
-    B1 --> B2 & B3
-    S1 --> S2 --> S3
-    T1 -.-> T2
-    P1 -.-> P2
+    %% HR Org
+    D --> T1(["Team Roster (/p/team)"])
+    T1 --> T2(["Recruit Injection (/p/team/add)"])
+    D --> P1(["Company Portfolio (/p/portfolio)"])
+    P1 --> P2(["Portfolio Mutation (/p/portfolio/new)"])
+    
+    %% System
+    D -.-> SET(["Global Config (/p/settings)"])
+    D -.-> NOT(["Bells & Whisles (/p/notifications)"])
 ```

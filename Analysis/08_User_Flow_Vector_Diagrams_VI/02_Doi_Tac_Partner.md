@@ -3,38 +3,30 @@
 
 ```mermaid
 graph TD
-    D(["Bảng Radar Thông Số (/p)"])
+    D(["Bảng Radar Tổng Quan (/p)"])
 
-    subgraph Bidding_Zone [Chợ Đấu Thầu]
-        B1(["Chợ Đấu Giá Nóng (/p/bids)"])
-        B2(["Tạo Đơn Báo Giá Mới (/p/bids/[requestId])"])
-        B3(["Kho Mẫu Copy Paste (/p/bids/templates)"])
-    end
+    %% Chợ Bids
+    D --> B1(["Chợ Đấu Giá Nóng (/p/bids)"])
+    B1 --> B2(["Tạo Đơn Báo Giá Mới (/p/bids/[requestId])"])
+    B1 --> B3(["Kho Mẫu Copy Paste (/p/bids/templates)"])
 
-    subgraph Operations [Tác Chiến & Lịch Thời Gian]
-        S1(["Lịch Công Ty Lớn (/p/schedule)"])
-        S2(["Lịch Cá Nhân Lính (/p/schedule/[bookingId])"])
-        S3(["Chat Với Chủ Nhà (/p/schedule/[bookingId]/chat)"])
-    end
+    %% Lịch Trình
+    B2 --> S1(["Lịch Công Ty Lớn (/p/schedule)"])
+    S1 --> S2(["Lịch Cá Nhân Lính (/p/schedule/[bookingId])"])
+    S2 --> S3(["Chat Với Chủ Nhà (/p/schedule/[bookingId]/chat)"])
+    
+    %% Kế Toán & Uy Tín
+    S2 --> F1(["Phơi Rút Tiền Kế Toán (/p/settlement)"])
+    S2 --> C1(["Danh Sách Khách Ruột (/p/customers)"])
+    S2 --> R1(["Bảng Tội Đồ Đánh Giá Dơ (/p/reviews)"])
 
-    subgraph Company_Mgmt [Bộ Máy Điều Hành]
-        T1(["Danh Mục Hệ Lính (/p/team)"])
-        T2(["Tuyển Mộ Nhanh Lính Mới (/p/team/add)"])
-        P1(["Profile Doanh Nghiệp (/p/portfolio)"])
-        P2(["Chỉnh Sửa Profile (/p/portfolio/new)"])
-        SET(["Công Tắc Cài Đặt (/p/settings)"])
-        NOT(["Radar Hệ Thống (/p/notifications)"])
-    end
-
-    subgraph Accounting_CRM [Ví Kế Toán & Uy Tín]
-        F1(["Phơi Rút Tiền Kế Toán (/p/settlement)"])
-        C1(["Danh Sách Khách Ruột (/p/customers)"])
-        R1(["Bảng Tội Đồ Đánh Giá Dơ (/p/reviews)"])
-    end
-
-    D --> B1 & S1 & F1 & T1 & P1
-    B1 --> B2 & B3
-    S1 --> S2 --> S3
-    T1 -.-> T2
-    P1 -.-> P2
+    %% Bộ Máy Điều Hành
+    D --> T1(["Danh Mục Hệ Lính (/p/team)"])
+    T1 --> T2(["Tuyển Mộ Nhanh Lính Mới (/p/team/add)"])
+    D --> P1(["Profile Doanh Nghiệp (/p/portfolio)"])
+    P1 --> P2(["Chỉnh Sửa Profile (/p/portfolio/new)"])
+    
+    %% System
+    D -.-> SET(["Công Tắc Cài Đặt (/p/settings)"])
+    D -.-> NOT(["Radar Hệ Thống (/p/notifications)"])
 ```

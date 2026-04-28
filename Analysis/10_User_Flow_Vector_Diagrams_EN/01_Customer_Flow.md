@@ -3,43 +3,36 @@
 
 ```mermaid
 graph TD
-    subgraph Discovery [Navigation & Public Discovery]
-        H(["Home Landing (/)"]) --> Q(["Wizard Request (/quote)"])
-        H --> P1(["Vendor Feed (/partner)"])
-        P1 --> P2(["Vendor Portfolio (/partner/[id])"])
-    end
+    %% Auth Block
+    L2(["Register (/signup)"]) --> L1(["Sign In (/login)"])
+    L3(["Recovery (/reset-password)"]) --> L1
+    
+    %% Discovery Block
+    L1 --> H(["Home Landing (/)"])
+    H --> Q(["Wizard Request (/quote)"])
+    H --> P1(["Vendor Feed (/partner)"])
+    P1 --> P2(["Vendor Portfolio (/partner/[id])"])
 
-    subgraph Core_Funnel [The Financial Funnel]
-        Q -->|Submit| W(["Live Bidding Wait (/waiting/[id])"])
-        W -->|Received 5| C(["Compare Matrix (/compare/[id])"])
-        C -->|Winner Selection| P(["NicePay Mount (/payment/[id])"])
-        P -->|Cleared| B1(["My Bookings (/bookings)"])
-        B1 --> B2(["Booking State (/bookings/[id])"])
-        B2 --> B3(["Websocket Chat (/bookings/[id]/chat)"])
-        B2 --> R(["Write Review (/review/[id])"])
-    end
+    %% Core Funnel
+    Q --> W(["Live Bidding Wait (/waiting/[id])"])
+    W --> C(["Compare Matrix (/compare/[id])"])
+    C --> P(["NicePay Mount (/payment/[id])"])
+    P --> B1(["My Bookings (/bookings)"])
+    B1 --> B2(["Booking State (/bookings/[id])"])
+    B2 --> B3(["Websocket Chat (/bookings/[id]/chat)"])
+    B2 --> R(["Write Review (/review/[id])"])
 
-    subgraph My_Page [User Preferences]
-        M1(["Mypage Dashboard (/mypage)"])
-        M2(["Reward Points (/mypage/points)"])
-        M3(["Saved Vendors (/mypage/favorites)"])
-        M4(["Recurring Setups (/mypage/recurring)"])
-        M5(["New Recurring (/mypage/recurring-new)"])
-        N1(["Notifications List (/notifications)"])
-        CS(["Create CS Ticket (/cs/new)"])
-    end
-
-    subgraph Auth_Legal [System Protection]
-        L1(["Sign In (/login)"])
-        L2(["Register (/signup)"])
-        L3(["Recovery (/reset-password)"])
-        L4(["Terms (/terms)"])
-        L5(["Privacy (/privacy)"])
-        L6(["Fallback (/404)"])
-    end
-
-    L1 --> H
-    H --> M1
-    M1 -.-> M2 & M3 & M4
-    M4 -.-> M5
+    %% User Preferences Rooted Logically
+    B1 --> M1(["Mypage Dashboard (/mypage)"])
+    M1 --> M2(["Reward Points (/mypage/points)"])
+    M1 --> M3(["Saved Vendors (/mypage/favorites)"])
+    M1 --> M4(["Recurring Setups (/mypage/recurring)"])
+    M4 --> M5(["New Recurring (/mypage/recurring-new)"])
+    
+    %% Orphans / Supporting Nodes
+    H -.-> N1(["Notifications List (/notifications)"])
+    H -.-> CS(["Create CS Ticket (/cs/new)"])
+    H -.-> L6(["Fallback (/404)"])
+    L4(["Terms (/terms)"]) -.-> H
+    L5(["Privacy (/privacy)"]) -.-> H
 ```
