@@ -1,18 +1,39 @@
-# LUỒNG ĐI PHÂN PHỐI QUẢN TRỊ VIÊN (ADMIN)
-
-*Mục tiêu: Chóp bu đứng trên cao nhìn xuống toàn bộ thiên hạ, gạt tay phán xử thẻ bài.*
+# BẢN ĐỒ CHUỖI ĐIỀU HƯỚNG QUẢN TRỊ VIÊN CẤP CAO (ADMIN)
+*Phân bố hệ thống theo Cấp độ rủi ro Data quyền hạn (Tổng 17 Trang)*
 
 ```mermaid
 graph TD
-    A(["Menu Điều Hướng Gốc<br/>(URL: /admin)"]) --> B(["Analytics Báo Cáo Tài Chính<br/>(URL: /admin/analytics)"])
-    A --> C(["Matching Kanban: Bảng Rớt Thẻ Đơn<br/>(URL: /admin/matching)"])
-    A --> D(["Customer Support: Đồn Cảnh Sát<br/>(URL: /admin/cs)"])
-    A --> E(["Sổ Hộ Khẩu Khách & Thợ<br/>(URL: /admin/members)"])
-    A --> F(["Marketing: Lò Rèn Mã Giảm Giá<br/>(URL: /admin/marketing)"])
-    
-    C -->|Ưu tiên đơn VIP| G(["Gắn thẻ thủ công ép thợ làm<br/>(Thao tác /admin/matching)"])
-    D -->|Khách khiếu nại nhà dơ| H(["Lệnh Hoàn tiền NicePay 50%<br/>(URL: /admin/cs/[id])"])
-    E -->|Thợ lừa đảo| I(["Khóa Mõm Thợ vĩnh viễn (Banned)<br/>(Thao tác /admin/members)"])
-    F -->|Ế ẩm thiếu doanh thu| J(["Dội Notification Push App<br/>(URL: /admin/broadcast)"])
+    A(["Tháp Chỉ Huy Lõi (/admin)"])
 
+    subgraph Core_Dispatch [Lưới Hỗ Trợ Khẩn Cấp]
+        D1(["Gắp Lắp Ghép Kanban (/admin/matching)"])
+        D2(["Đồn CSKH Cự Cãi (/admin/cs)"])
+        D3(["Tòa Án Chi Tiết (/admin/cs/[id])"])
+    end
+
+    subgraph Analytic_Finance [Phân Tích Dòng Tiền]
+        F1(["Radar Cảnh Quan (/admin/analytics)"])
+        F2(["Biên Lai NicePay Gầm (/admin/transactions)"])
+        F3(["Lệnh Chuyển Ngân Hàng (/admin/settlement)"])
+    end
+
+    subgraph Moderation_Risk [Đội Cấm Vệ & An Ninh Mạng]
+        R1(["Chuông An Toàn Còi Báo (/admin/alerts)"])
+        R2(["Camera Lịch Sử Thao Tác (/admin/audit)"])
+        R3(["Sọt Rác Tố Cáo (/admin/reports)"])
+        R4(["Búa Tòa Án Cấp 5 (/admin/reports/[id])"])
+        R5(["Phân Buồng Đánh Giá Giam (/admin/reviews)"])
+    end
+
+    subgraph Global_Entity [Quản Trị Các Bộ Cấu Thành]
+        M1(["Loa Phát Thanh Diện Rộng (/admin/broadcast)"])
+        M2(["Máy In Mã Giảm Giá (/admin/marketing)"])
+        M3(["Sổ Tử Danh Bạ Người Dùng (/admin/members)"])
+        S1(["Cầu Dao Điện Lưới Tắt Bật Hệ Thống (/admin/settings)"])
+        N1(["Chuông Thông Báo Góc Trái (/admin/notifications)"])
+    end
+
+    A --> F1 & D1 & R1 & M1
+    D2 --> D3
+    R3 --> R4
 ```

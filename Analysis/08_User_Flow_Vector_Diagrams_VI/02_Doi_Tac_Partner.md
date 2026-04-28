@@ -1,19 +1,40 @@
-# LUỒNG ĐI CỦA CÔNG TY ĐỐI TÁC THI CÔNG (PARTNER)
-
-*Mục tiêu: Đẩy thợ vào tìm việc, nộp đơn lấy tiền và quản lý nhân viên.*
+# BẢN ĐỒ CHUỖI GIAO DIỆN ĐỐI TÁC (PARTNER PORTAL)
+*Gồm: Thiết lập thầu, Tác chiến chạy đơn và Mở Công ty (Tổng 16 Trang)*
 
 ```mermaid
 graph TD
-    A(["Trang Tổng Quan / Dashboard<br/>(URL: /p)"]) --> B(["Bảng Tìm Việc / Marketplace<br/>(URL: /p/bids)"])
-    A --> C(["Sổ Lịch Trình Quản Lý Job<br/>(URL: /p/schedule)"])
-    A --> D(["Quản Lý Nhân Viên Thợ<br/>(URL: /p/team)"])
-    
-    B -->|Thấy đơn khách ngon| E(["Form Nhập Báo Giá Gửi Khách<br/>(URL: /p/bids/[requestId])"])
-    E -->|Gửi thành công| F{"Chờ Khách Duyệt Từ /compare/[id]"}
-    F -->|Khách Chọn Thắng Thầu| C
-    
-    C -->|Bấm vào job báo cáo| G(["Chat cập nhật tình hình<br/>(URL: /p/schedule/[bookingId]/chat)"])
-    G -->|Dọn xong| H{"Nghiệm thu / Đóng đơn"}
-    H -->|Đợi quét cuối tuần| I(["Ví Tiền Lương Kế Toán<br/>(URL: /p/settlement)"])
-    
+    D(["Bảng Radar Thông Số (/p)"])
+
+    subgraph Bidding_Zone [Chợ Đấu Thầu]
+        B1(["Chợ Đấu Giá Nóng (/p/bids)"])
+        B2(["Tạo Đơn Báo Giá Mới (/p/bids/[requestId])"])
+        B3(["Kho Mẫu Copy Paste (/p/bids/templates)"])
+    end
+
+    subgraph Operations [Tác Chiến & Lịch Thời Gian]
+        S1(["Lịch Công Ty Lớn (/p/schedule)"])
+        S2(["Lịch Cá Nhân Lính (/p/schedule/[bookingId])"])
+        S3(["Chat Với Chủ Nhà (/p/schedule/[bookingId]/chat)"])
+    end
+
+    subgraph Company_Mgmt [Bộ Máy Điều Hành]
+        T1(["Danh Mục Hệ Lính (/p/team)"])
+        T2(["Tuyển Mộ Nhanh Lính Mới (/p/team/add)"])
+        P1(["Profile Doanh Nghiệp (/p/portfolio)"])
+        P2(["Chỉnh Sửa Profile (/p/portfolio/new)"])
+        SET(["Công Tắc Cài Đặt (/p/settings)"])
+        NOT(["Radar Hệ Thống (/p/notifications)"])
+    end
+
+    subgraph Accounting_CRM [Ví Kế Toán & Uy Tín]
+        F1(["Phơi Rút Tiền Kế Toán (/p/settlement)"])
+        C1(["Danh Sách Khách Ruột (/p/customers)"])
+        R1(["Bảng Tội Đồ Đánh Giá Dơ (/p/reviews)"])
+    end
+
+    D --> B1 & S1 & F1 & T1 & P1
+    B1 --> B2 & B3
+    S1 --> S2 --> S3
+    T1 -.-> T2
+    P1 -.-> P2
 ```
